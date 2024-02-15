@@ -10,7 +10,7 @@ import ViewReport from "./components/ViewReport.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/inward",
     element: <App />,
     errorElement: <ErrorPage />,
   },
