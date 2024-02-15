@@ -10,7 +10,7 @@ import ViewReport from "./components/ViewReport.jsx";
 
 const router = createBrowserRouter([
   {
-    path: "/inward",
+    path: "/iguru",
     element: <App />,
     errorElement: <ErrorPage />,
   },
