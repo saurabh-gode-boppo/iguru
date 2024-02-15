@@ -5,6 +5,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./components/ErrorPage.jsx";
 import ReviewList from "./components/ReviewList.jsx";
+import AssesseeDataPage from "./components/AssesseeDataPage.jsx";
+import ViewReport from "./components/ViewReport.jsx";
 
 const router = createBrowserRouter([
   {
@@ -14,9 +16,14 @@ const router = createBrowserRouter([
   },
   {
     path: "/assignment",
-    element: <ReviewList />,
+    element: <AssesseeDataPage />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/report",
+    element: <ViewReport />,
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

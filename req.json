@@ -1,0 +1,153 @@
+[
+  {
+    "associateId": "0654321",
+    "assesseeId": "0654321"
+  },
+  "JSON Response",
+  {
+    "responseCode": "000",
+    "responseMessage": "",
+    "responseObject": {
+      "assesseeReport": [
+        {
+          "assesseeId": "625d381e56904407696f6d38",
+          "assesseeAssignmentId": "65c9f644e825a80e06f9d5e9",
+          "assesseeAssignmentName": "Certificate",
+          "assesseeAssignmentDescription": "",
+          "assesseeAssignmentFeedback": null,
+          "assesseeAssignmentStatus": "FINISHED",
+          "priviousAssesseeAssignmentStatus": null,
+          "assesseeAssignmentStatusEvaluation": "EVALUATED",
+          "assesseeAssignmentStatusReport": null,
+          "assesseeAssignmentTime": null,
+          "assesseeAssignmentTimeline": {
+            "assesseeAssignmentTimelineDateTimeEnd": 1707903998892,
+            "assesseeAssignmentTimelineDateTimeStart": 1707903966095
+          },
+          "assesseeAssignmentAssessmentDistinct": [
+            {
+              "assesseeAssignmentAssessmentId": "65c9f6e6f3336c00d1f43db8",
+              "assesseeAssignmentAssessmentName": "Data Interpretation",
+              "assesseeAssignmentAssessmentDescription": "Aptitude Test",
+              "assesseeAssignmentAssessmentAttemptedTotalTime": 6118,
+              "assesseeAssignmentAssessmentScore": {
+                "assesseeAssignmentAssessmentScoreExtremumMaximum": 12.0,
+                "assesseeAssignmentAssessmentScoreExtremumMinimum": 0.0,
+                "assesseeAssignmentAssessmentScoreGrade": "",
+                "assesseeAssignmentAssessmentScorePercentage": 0.0,
+                "assesseeAssignmentAssessmentScorePercentile": 0.0,
+                "assesseeAssignmentAssessmentScoreRank": null,
+                "assesseeAssignmentAssessmentScoreRaw": 0.0,
+                "assesseeAssignmentAssessmentScoreScaled": null,
+                "assesseeAssignmentAssessmentScoreStandardTen": 1.0,
+                "assesseeAssignmentAssessmentQualityOfJudgementScoreStandardTen": null,
+                "qualityOfJudgementScoreStandardTenOneLabel": null,
+                "qualityOfJudgementScoreStandardTenOneExplanation": null,
+                "qualityOfJudgementScoreStandardTenTwoLabel": null,
+                "qualityOfJudgementScoreStandardTenTwoExplanation": null,
+                "assesseeAssignmentAssessmentSpeedOfJudgementScoreStandardTen": null,
+                "speedOfJudgementScoreStandardTenOneLabel": null,
+                "speedOfJudgementScoreStandardTenOneExplanation": null,
+                "speedOfJudgementScoreStandardTenTwoLabel": null,
+                "speedOfJudgementScoreStandardTenTwoExplanation": null,
+                "assesseeAssignmentAssessmentActionOrientedScoreStandardTen": null,
+                "actionOrientedScoreStandardTenOneLabel": null,
+                "actionOrientedScoreStandardTenOneExplanation": null,
+                "actionOrientedScoreStandardTenTwoLabel": null,
+                "actionOrientedScoreStandardTenTwoExplanation": null,
+                "assesseeAssignmentAssessmentScoreTransformed": 20.0,
+                "assesseeAssignmentAssessmentScoreZ": -3.0,
+                "assesseeAssignmentAssesssmentSpeedOfJudgementScoreRaw": null,
+                "assesseeAssignmentAssesssmentActionOrientedScoreRaw": null,
+                "assessmentScoreOneLabel": null,
+                "assessmentScoreOneExplanation": null,
+                "assessmentScoreTwoLabel": null,
+                "assessmentScoreTwoExplanation": null
+              },
+              "assesseeAssignmentAssessmentStatus": "FINISHED",
+              "assesseeAssignmentAssessmentStatusEvaluation": "EVALUATED",
+              "assesseeAssignmentAssessmentStatusReport": null,
+              "assesseeAssignmentAssessmentTime": 900000,
+              "assesseeAssignmentAssessmentTimeline": {
+                "assesseeAssignmentAssessmentTimelineDateTimeEnd": 1707903998892,
+                "assesseeAssignmentAssessmentTimelineDateTimeStart": 1707903992774
+              },
+              "assesseeAssignmentAssessmentItemResponseAttempted": 2,
+              "assesseeAssignmentAssessmentItemResponseCorrect": 0,
+              "assesseeAssignmentAssessmentItemTotal": 12
+            }
+          ]
+        }
+      ],
+      "assesseeCertificate": [
+        "https://d1g11cdruslye5.cloudfront.net/assessees_certificates/625d381e56904407696f6d38_65c9f644e825a80e06f9d5e9.pdf",
+        "https://d1g11cdruslye5.cloudfront.net/assessees_certificates/625d307696f56444338_65c9f644e825a80e06f9d433.pdf"
+      ],
+      "assesseeInformation": {
+        "informationBasic": {
+          "assesseeNamePrefix": "",
+          "assesseeNameFirst": "Simple",
+          "assesseeNameOther": "Sample",
+          "assesseeNameLast": "",
+          "assesseeNameSuffix": "",
+          "assesseeNameVerification": false,
+          "assesseeAlias": "",
+          "assesseePicture": "",
+          "assesseePictureVerification": false,
+          "assesseeFlag": false
+        },
+        "informationSetup": {
+          "assesseeSignInCredential": "",
+          "assesseeSignInPassword": ""
+        },
+        "assesseeAddressEmailPrimary": {
+          "assesseeAddressEmail": "",
+          "assesseeAddressEmailCommunication": false,
+          "assesseeAddressEmailVerification": false
+        },
+        "assesseeTag": {
+          "assesseeTagPrimary": "88sd9s824s234",
+          "assesseeTagSecondary": ""
+        }
+      },
+      "assesseeAssignment": [
+        {
+          "assesseeAssignmentId": "650bf42f3d1ed917dddbd4b6",
+          "assesseeAssignmentName": "#bj",
+          "assesseeAssignmentDescription": "",
+          "assesseeAssignmentStatus": "STARTED",
+          "assignmentAdministrationSequence": ["assignment assessment"],
+          "assignmentCommunique": null,
+          "assignmentSynopsis": null,
+          "assesseeAssignmentAssessmentDistinct": [
+            {
+              "assesseeAssignmentAssessmentId": "650bf47fc3881e7ddf34b9f6",
+              "assesseeAssignmentAssessmentName": "Business Judgement",
+              "assesseeAssignmentAssessmentDescription": "Questionnaire",
+              "assesseeAssignmentAssessmentStatus": "STARTED",
+              "assesseeAssignmentAssessmentItemAttemptedLast": "assessment section 1:1"
+            }
+          ]
+        },
+        {
+          "assesseeAssignmentId": "65c4a32cad18101c25a12830",
+          "assesseeAssignmentName": "BJ Evaluation",
+          "assesseeAssignmentDescription": "P",
+          "assesseeAssignmentStatus": "STARTED",
+          "assignmentAdministrationSequence": ["assignment assessment"],
+          "assignmentCommunique": null,
+          "assignmentSynopsis": null,
+          "assesseeAssignmentAssessmentDistinct": [
+            {
+              "assesseeAssignmentAssessmentId": "65c4a395d2b74a653ae3957c",
+              "assesseeAssignmentAssessmentName": "Business Judgement",
+              "assesseeAssignmentAssessmentDescription": "Questionnaire",
+              "assesseeAssignmentAssessmentStatus": "STARTED",
+              "assesseeAssignmentAssessmentItemAttemptedLast": "assessment section 1:2"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

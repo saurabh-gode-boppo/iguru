@@ -1,6 +1,5 @@
 import React from "react";
-
-const ReviewList = () => {
+const ReviewList = ({ name, desc, id, status, onClickFn }) => {
   let arr = [
     {
       id: 1,
@@ -52,24 +51,27 @@ const ReviewList = () => {
     },
   ];
 
-  const onClickStart = (e) => {
-    
-  }
-
+  const onClickStart = (e) => {};
   return (
-    <div>
-      {arr.map((data) => {
-        return (
-          <div className="w-96 flex align-middle justify-between p-2 border-[1px] rounded-md" key={data.id} >
-            <div className="flex justify-center font-semibold flex-col">
-              <p>{data.assignmentName}</p>
-              <div className="p-1"></div>
-              <span className="text-sm">{data.assignmentDesc}</span>
-            </div>
-            <div className="h-auto flex place-items-center" onClick={onClickStart}><span>{data.assignmentStatus}  &#9654;</span></div>
-          </div>
-        );
-      })}
+    <div data-id={id}>
+      {/* {arr.map((data) => { */}
+      {/* return ( */}
+      <div
+        className="w-96 flex align-middle justify-between p-2 border-[1px] rounded-md"
+        key={id}
+        data-id={id}
+      >
+        <div className="flex justify-center font-semibold flex-col">
+          <p>{name}</p>
+          <div className="p-1"></div>
+          <span className="text-sm">{desc}</span>
+        </div>
+        <div data-id={id} className="h-auto flex place-items-center" onClick={onClickFn}>
+          <span>{status} &#9654;</span>
+        </div>
+      </div>
+      {/* ); */}
+      {/* })} */}
     </div>
   );
 };

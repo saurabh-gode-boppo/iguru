@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ShootingStarBorder from "./components/ShootingStarBorder";
 import ReviewList from "./components/ReviewList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function App() {
   const [firstName, setFirstName] = useState("");
@@ -10,6 +10,8 @@ function App() {
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("");
   const [err, setErr] = useState("");
+
+  const navigate = useNavigate();
 
   const payload = {
     associateId: "623dab305c151e50182f1412",
@@ -34,6 +36,9 @@ function App() {
   };
 
   const inwardApiCall = async () => {
+
+    navigate("/assignment")
+    return
     fetch(
       `${
         import.meta.env.VITE_API_BASE_URL + import.meta.env.VITE_ENVIRONMENT
@@ -48,7 +53,8 @@ function App() {
       }
     )
       .then((data) => {
-        console.log(data);
+        // console.log(data);
+        navigate("/assignment")
       })
       .catch((e) => {
         console.log(e);
@@ -56,14 +62,14 @@ function App() {
   };
 
   const onSubmit = () => {
-    console.log(
-      firstName,
-      lastName,
-      email,
-      mobile,
-      gender,
-      import.meta.env.VITE_API_BASE_URL
-    );
+    // console.log(
+    //   firstName,
+    //   lastName,
+    //   email,
+    //   mobile,
+    //   gender,
+    //   import.meta.env.VITE_API_BASE_URL
+    // );
 
     if (!firstName || !lastName || !email || !mobile || !gender) {
       setErr("All Fields are Mandatory");
