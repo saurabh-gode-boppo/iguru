@@ -1,51 +1,54 @@
 import React from "react";
 import data from "../../req.json";
+import { Link } from "react-router-dom";
 
-const ViewReport = () => {
-  const assesseeAssignmentAssessmentScore = {
-    assesseeAssignmentAssessmentScoreExtremumMaximum: 12.0,
-    assesseeAssignmentAssessmentScoreExtremumMinimum: 0.0,
-    assesseeAssignmentAssessmentScoreGrade: "",
-    assesseeAssignmentAssessmentScorePercentage: 0.0,
-    assesseeAssignmentAssessmentScorePercentile: 0.0,
-    assesseeAssignmentAssessmentScoreRank: null,
-    assesseeAssignmentAssessmentScoreRaw: 0.0,
-    assesseeAssignmentAssessmentScoreScaled: null,
-    assesseeAssignmentAssessmentScoreStandardTen: 1.0,
-    assesseeAssignmentAssessmentQualityOfJudgementScoreStandardTen: null,
-    qualityOfJudgementScoreStandardTenOneLabel: null,
-    qualityOfJudgementScoreStandardTenOneExplanation: null,
-    qualityOfJudgementScoreStandardTenTwoLabel: null,
-    qualityOfJudgementScoreStandardTenTwoExplanation: null,
-    assesseeAssignmentAssessmentSpeedOfJudgementScoreStandardTen: null,
-    speedOfJudgementScoreStandardTenOneLabel: null,
-    speedOfJudgementScoreStandardTenOneExplanation: null,
-    speedOfJudgementScoreStandardTenTwoLabel: null,
-    speedOfJudgementScoreStandardTenTwoExplanation: null,
-    assesseeAssignmentAssessmentActionOrientedScoreStandardTen: null,
-    actionOrientedScoreStandardTenOneLabel: null,
-    actionOrientedScoreStandardTenOneExplanation: null,
-    actionOrientedScoreStandardTenTwoLabel: null,
-    actionOrientedScoreStandardTenTwoExplanation: null,
-    assesseeAssignmentAssessmentScoreTransformed: 20.0,
-    assesseeAssignmentAssessmentScoreZ: -3.0,
-    assesseeAssignmentAssesssmentSpeedOfJudgementScoreRaw: null,
-    assesseeAssignmentAssesssmentActionOrientedScoreRaw: null,
-    assessmentScoreOneLabel: null,
-    assessmentScoreOneExplanation: null,
-    assessmentScoreTwoLabel: null,
-    assessmentScoreTwoExplanation: null,
-  };
-  const data = {
-    assesseeAssignmentAssessmentName: "Data Interpretation",
-    assesseeAssignmentAssessmentDescription: "Aptitude Test",
-  };
+const ViewReport = ({assesseeAssignmentAssessmentScore, data, backBtn}) => {
+  // const assesseeAssignmentAssessmentScore = {
+  //   assesseeAssignmentAssessmentScoreExtremumMaximum: 12.0,
+  //   assesseeAssignmentAssessmentScoreExtremumMinimum: 0.0,
+  //   assesseeAssignmentAssessmentScoreGrade: "",
+  //   assesseeAssignmentAssessmentScorePercentage: 0.0,
+  //   assesseeAssignmentAssessmentScorePercentile: 0.0,
+  //   assesseeAssignmentAssessmentScoreRank: null,
+  //   assesseeAssignmentAssessmentScoreRaw: 0.0,
+  //   assesseeAssignmentAssessmentScoreScaled: null,
+  //   assesseeAssignmentAssessmentScoreStandardTen: 1.0,
+  //   assesseeAssignmentAssessmentQualityOfJudgementScoreStandardTen: null,
+  //   qualityOfJudgementScoreStandardTenOneLabel: null,
+  //   qualityOfJudgementScoreStandardTenOneExplanation: null,
+  //   qualityOfJudgementScoreStandardTenTwoLabel: null,
+  //   qualityOfJudgementScoreStandardTenTwoExplanation: null,
+  //   assesseeAssignmentAssessmentSpeedOfJudgementScoreStandardTen: null,
+  //   speedOfJudgementScoreStandardTenOneLabel: null,
+  //   speedOfJudgementScoreStandardTenOneExplanation: null,
+  //   speedOfJudgementScoreStandardTenTwoLabel: null,
+  //   speedOfJudgementScoreStandardTenTwoExplanation: null,
+  //   assesseeAssignmentAssessmentActionOrientedScoreStandardTen: null,
+  //   actionOrientedScoreStandardTenOneLabel: null,
+  //   actionOrientedScoreStandardTenOneExplanation: null,
+  //   actionOrientedScoreStandardTenTwoLabel: null,
+  //   actionOrientedScoreStandardTenTwoExplanation: null,
+  //   assesseeAssignmentAssessmentScoreTransformed: 20.0,
+  //   assesseeAssignmentAssessmentScoreZ: -3.0,
+  //   assesseeAssignmentAssesssmentSpeedOfJudgementScoreRaw: null,
+  //   assesseeAssignmentAssesssmentActionOrientedScoreRaw: null,
+  //   assessmentScoreOneLabel: null,
+  //   assessmentScoreOneExplanation: null,
+  //   assessmentScoreTwoLabel: null,
+  //   assessmentScoreTwoExplanation: null,
+  // };
+  // const data = {
+  //   assesseeAssignmentAssessmentName: "Data Interpretation",
+  //   assesseeAssignmentAssessmentDescription: "Aptitude Test",
+  // };
+  // console.log(data)
   return (
     <div>
       {/* {data.map((dataVal) => {
         return ( */}
       <div>
         <div className="my-2">
+          <div className="my-6" onClick={backBtn}>go back&#9194;</div> 
           <p className="text-yellow-500">{data.assesseeAssignmentAssessmentName}</p>
           <span className="text-blue-500">{data.assesseeAssignmentAssessmentDescription}</span>
         </div>

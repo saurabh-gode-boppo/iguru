@@ -62,12 +62,12 @@ const ReviewList = ({ name, desc, id, status, onClickFn }) => {
         data-id={id}
       >
         <div className="flex justify-center font-semibold flex-col">
-          <p>{name}</p>
+          <p>{name || ""}</p>
           <div className="p-1"></div>
-          <span className="text-sm">{desc}</span>
+          <span className="text-sm">{desc || ""}</span>
         </div>
         <div data-id={id} className="h-auto flex place-items-center" onClick={onClickFn}>
-          <span>{status} &#9654;</span>
+          <span>{status || ""} &#9654;</span>
         </div>
       </div>
       {/* ); */}

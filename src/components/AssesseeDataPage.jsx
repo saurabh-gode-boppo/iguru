@@ -3,22 +3,23 @@ import data from "../../req.json";
 import ReviewList from "./ReviewList";
 import { useNavigate } from "react-router-dom";
 import AssesseeData from "./AssesseeData";
+import ViewReport from "./ViewReport";
 
 const AssesseeDataPage = () => {
-  const [responseObject, setResponseObject] = useState(data[2].responseObject);
+  const [responseObject, setResponseObject] = useState();
 
-  const [selectedId, setSelectedId] = useState("");
+  const [viewReport, setViewReport] = useState(false);
   const [viewAssessment, setViewAssessment] = useState(false);
   const [assessment, setAssessment] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate("");
+  const [reportId, setReportId] = useState("");
 
   useEffect(() => {
     const payload = {
-      assesseeId: "63c61e24c4367209b1ea1e68",
-      associateId: "623dab305c151e50182f1412",
-      assesseeAssignmentStatus: ["STARTED", "UNSTARTED", "ADMINISTERED"],
+      assesseeId: localStorage.getItem("assesseeId"),
+      associateId: localStorage.getItem("associateId"),
       filterTypeName: "iGuru_Assignment",
+      assesseeAssignmentStatus: ["STARTED", "UNSTARTED", "ADMINISTERED"],
       countPage: -1,
       numberPage: 0,
       filter: true,
@@ -55,9 +56,10 @@ const AssesseeDataPage = () => {
       ],
     };
     fetch(
-      `${
-        import.meta.env.VITE_API_BASE_URL + import.meta.env.VITE_ENVIRONMENT
-      }/insight-guru/api/assessee`,
+      // `${
+      //   import?.meta.env.VITE_API_BASE_URL + import?.meta.env.VITE_ENVIRONMENT
+      // }/insight-guru/api/assignment`,
+      "https://isdl4c2gae.execute-api.ap-southeast-1.amazonaws.com/dev/insight-guru/api/assessee/reviewList",
       {
         method: "POST",
         headers: new Headers({
@@ -67,22 +69,25 @@ const AssesseeDataPage = () => {
         body: JSON.stringify(payload),
       }
     )
-      .then((data) => {
-        setResponseObject(data.json());
+      .then(async (data) => {
+        let resp = await data.json();
+        setResponseObject(resp.responseObject);
         setIsLoading(false);
       })
       .catch((e) => {
+        setIsLoading(false);
         console.log(e);
       });
   }, []);
 
+
   return (
     <>
-      {/* {isLoading && (
+      {isLoading && (
         <div role="status">
           <svg
             aria-hidden="true"
-            class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+            className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
             viewBox="0 0 100 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -96,45 +101,54 @@ const AssesseeDataPage = () => {
               fill="currentFill"
             />
           </svg>
-          <span class="sr-only">Loading...</span>
+          <span className="sr-only">Loading...</span>
         </div>
-      )} */}
+      )}
 
-      {isLoading && (
+      {!isLoading && !viewReport && (
         <>
           <AssesseeData
             name={
-              responseObject.assesseeInformation.informationBasic
-                .assesseeNameFirst +
+              responseObject?.assesseeInformation?.informationBasic
+                ?.assesseeNameFirst +
               " " +
-              responseObject.assesseeInformation.informationBasic
-                .assesseeNameOther +
+              responseObject?.assesseeInformation?.informationBasic
+                ?.assesseeNameOther +
               " " +
-              responseObject.assesseeInformation.informationBasic
-                .assesseeNameLast
+              responseObject?.assesseeInformation?.informationBasic
+                ?.assesseeNameLast
             }
-            email={responseObject.assesseeInformation.assesseeAddressEmailPrimary.assesseeAddressEmail}
-            assesseeId={responseObject.assesseeInformation.assesseeTag.assesseeTagPrimary}
+            email={
+              responseObject?.assesseeInformation?.assesseeAddressEmailPrimary
+                .assesseeAddressEmail
+            }
+            assesseeId={
+              responseObject?.assesseeInformation?.assesseeTag
+                .assesseeTagPrimary
+            }
           />
           <div className="flex align-middle justify-center">
             <div className="mx-5 border[1px] border-slate-400">
-              <h2 className="my-2">Assesee Report</h2>
-              {responseObject.assesseeReport.map((data, index) => {
+              <h2 className="my-2 text-yellow-500">Assesee Report</h2>
+              {responseObject?.assesseeReport?.map((data, index) => {
                 return (
                   <ReviewList
-                    name={data.assesseeAssignmentName}
-                    desc={data.assesseeAssignmentDescription}
+                    name={data?.assesseeAssignmentName}
+                    desc={data?.assesseeAssignmentDescription}
                     id={index}
-                    status={data.assesseeAssignmentStatus}
+                    status={data?.assesseeAssignmentStatus}
                     onClickFn={(e) => {
-                      navigate("/report");
+                      let idx = e.currentTarget?.getAttribute("data-id");
+                      setReportId(idx);
+                      setViewReport(true);
+                      // navigate("/report");
                     }}
                   />
                 );
               })}
               <div className="">
-                <h2 className="my-2">certificates</h2>
-                {responseObject.assesseeCertificate.map((data, index) => {
+                <h2 className="my-2 text-yellow-500">certificates</h2>
+                {responseObject?.assesseeCertificate?.map((data, index) => {
                   return (
                     <ReviewList
                       name={"certificate1"}
@@ -152,21 +166,21 @@ const AssesseeDataPage = () => {
 
             {!viewAssessment && (
               <div className="">
-                <h2 className="my-2">assesseeAssignment</h2>
-                {responseObject.assesseeAssignment.map((data, index) => {
+                <h2 className="my-2 text-yellow-500">assesseeAssignment</h2>
+                {responseObject?.assesseeAssignment?.map((data, index) => {
                   return (
                     <ReviewList
-                      name={data.assesseeAssignmentName}
-                      desc={data.assesseeAssignmentDescription}
-                      id={data.assesseeAssignmentId}
-                      status={data.assesseeAssignmentStatus}
+                      name={data?.assesseeAssignmentName}
+                      desc={data?.assesseeAssignmentDescription}
+                      id={data?.assesseeAssignmentId}
+                      status={data?.assesseeAssignmentStatus}
                       onClickFn={(e) => {
-                        let idx = e.currentTarget.getAttribute("data-id");
+                        let idx = e.currentTarget?.getAttribute("data-id");
                         let assessmentdata = [];
-                        responseObject.assesseeAssignment.forEach((data) => {
-                          if (idx === data.assesseeAssignmentId)
-                            assessmentdata.push(
-                              data.assesseeAssignmentAssessmentDistinct
+                        responseObject?.assesseeAssignment?.forEach((data) => {
+                          if (idx === data?.assesseeAssignmentId)
+                            assessmentdata?.push(
+                              data?.assesseeAssignmentAssessmentDistinct
                             );
                         });
                         setAssessment(assessmentdata);
@@ -179,16 +193,17 @@ const AssesseeDataPage = () => {
             )}
             {viewAssessment && (
               <div className="">
-                <h2 className="my-2">assesseeAssignmentAssessment</h2>
-                {assessment.length > 0 &&
-                  assessment[0].map((data, index) => {
-                    console.debug(data);
+                <h2 className="my-2 text-yellow-500">
+                  assesseeAssignmentAssessment
+                </h2>
+                {assessment?.length > 0 &&
+                  assessment[0]?.map((data, index) => {
                     return (
                       <ReviewList
-                        name={data.assesseeAssignmentAssessmentName}
-                        desc={data.assesseeAssignmentAssessmentDescription}
-                        id={data.assesseeAssignmentAssessmentId}
-                        status={data.assesseeAssignmentAssessmentStatus}
+                        name={data?.assesseeAssignmentAssessmentName}
+                        desc={data?.assesseeAssignmentAssessmentDescription}
+                        id={data?.assesseeAssignmentAssessmentId}
+                        status={data?.assesseeAssignmentAssessmentStatus}
                         onClickFn={(e) => {
                           setViewAssessment(false);
                         }}
@@ -198,6 +213,26 @@ const AssesseeDataPage = () => {
               </div>
             )}
           </div>
+        </>
+      )}
+
+      {!isLoading && viewReport && (
+        <>
+          {responseObject?.assesseeReport[
+            reportId
+          ].assesseeAssignmentAssessmentDistinct?.map((data) => {
+            return (
+              <ViewReport
+                backBtn={() => {
+                  setViewReport((prevState) => !prevState);
+                }}
+                assesseeAssignmentAssessmentScore={
+                  data.assesseeAssignmentAssessmentScore
+                }
+                data={data}
+              />
+            );
+          })}
         </>
       )}
     </>

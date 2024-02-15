@@ -38,11 +38,14 @@ function App() {
   const inwardApiCall = async () => {
 
     navigate("/assignment")
+    localStorage.setItem("associateId", "623dab305c151e50182f1412");
+    localStorage.setItem("assesseeId", "6481aba19e55a66c6b4fb2bd");
     return
     fetch(
-      `${
-        import.meta.env.VITE_API_BASE_URL + import.meta.env.VITE_ENVIRONMENT
-      }/insight-guru/api/assessee`,
+      // `${
+      //   import.meta.env.VITE_API_BASE_URL + import.meta.env.VITE_ENVIRONMENT
+      // }/insight-guru/api/assessee`,
+      "https://zvbvntqfli.execute-api.ap-southeast-1.amazonaws.com/dev/insight-guru/api/assessee",
       {
         method: "POST",
         headers: new Headers({
