@@ -40,7 +40,7 @@ function App() {
     navigate("/assignment")
     localStorage.setItem("associateId", "623dab305c151e50182f1412");
     localStorage.setItem("assesseeId", "6481aba19e55a66c6b4fb2bd");
-    return
+    return;
     fetch(
       // `${
       //   import.meta.env.VITE_API_BASE_URL + import.meta.env.VITE_ENVIRONMENT
