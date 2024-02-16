@@ -27,7 +27,7 @@ function App() {
     },
     assesseeAddressEmailPrimary: {
       assesseeAddressEmail: email,
-      assesseeAddressEmailCommunication: false,
+      assesseeAddressEmailCommunication: true,
       assesseeAddressEmailVerification: false,
     },
     informationPersonal: {
@@ -37,10 +37,10 @@ function App() {
 
   const inwardApiCall = async () => {
 
-    navigate("/assignment")
-    localStorage.setItem("associateId", "623dab305c151e50182f1412");
-    localStorage.setItem("assesseeId", "6481aba19e55a66c6b4fb2bd");
-    return;
+    // navigate("/assignment")
+    // localStorage.setItem("associateId", "623dab305c151e50182f1412");
+    // localStorage.setItem("assesseeId", "6481aba19e55a66c6b4fb2bd");
+    // return;
     fetch(
       // `${
       //   import.meta.env.VITE_API_BASE_URL + import.meta.env.VITE_ENVIRONMENT
@@ -55,11 +55,29 @@ function App() {
         body: JSON.stringify(payload),
       }
     )
-      .then((data) => {
-        // console.log(data);
+      .then(async (data) => {
+        // console.log(await data.json());
+        const resp = await data.json();
+        console.log(resp)
+        if(resp.responseCode !== "000"  || resp.responseObject.length === 0){
+          navigate("/error")
+          return
+        }
+
+        const respObj = resp.responseObject[0];
+
+        if(!respObj?.assesseeTag?.assesseeTagPrimary){
+          navigate("/error")
+          return
+        }
+
+        localStorage.setItem("associateId", respObj?.associateId || "623dab305c151e50182f1412");
+        localStorage.setItem("assesseeId", respObj?.assesseeTag?.assesseeTagPrimary);
+
         navigate("/assignment")
       })
       .catch((e) => {
+        navigate('/error')
         console.log(e);
       });
   };

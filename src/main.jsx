@@ -20,8 +20,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/report",
-    element: <ViewReport />,
+    path: "/error",
+    element: <ErrorPage />,
     errorElement: <ErrorPage />,
   }
 ]);
