@@ -11,6 +11,7 @@ function App() {
   const [gender, setGender] = useState("");
   const [err, setErr] = useState("");
   const [loginCred, setLoginCred] = useState({});
+  const [error, setError] = useState("")
 
   const navigate = useNavigate();
 
@@ -60,6 +61,7 @@ function App() {
         const resp = await data.json();
         console.log(resp);
         if (resp.responseCode !== "000" || resp.responseObject.length === 0) {
+          setErr(resp.responseMessage)
           navigate("/error");
           return;
         }
@@ -70,7 +72,7 @@ function App() {
           navigate("/error");
           return;
         }
-
+        setErr(resp.responseMessage)
         localStorage.setItem(
           "associateId",
           respObj?.associateId || "623dab305c151e50182f1412"
@@ -86,7 +88,8 @@ function App() {
         // navigate("/assignment");
       })
       .catch((e) => {
-        navigate("/error");
+        setError(e.message)
+        // navigate("/error");
         console.log(e);
       });
   };
@@ -206,6 +209,7 @@ function App() {
       </div>
       <div className="h-8"></div>
 
+      <p>ERR: {error}</p>
       <p>credential: {loginCred.credential}</p>
       <p>PASSWORD: {loginCred.password}</p>
       <Link
