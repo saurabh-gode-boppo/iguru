@@ -10,6 +10,7 @@ function App() {
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("");
   const [err, setErr] = useState("");
+  const [loginCred, setLoginCred] = useState({});
 
   const navigate = useNavigate();
 
@@ -36,7 +37,6 @@ function App() {
   };
 
   const inwardApiCall = async () => {
-
     // navigate("/assignment")
     // localStorage.setItem("associateId", "623dab305c151e50182f1412");
     // localStorage.setItem("assesseeId", "6481aba19e55a66c6b4fb2bd");
@@ -58,26 +58,35 @@ function App() {
       .then(async (data) => {
         // console.log(await data.json());
         const resp = await data.json();
-        console.log(resp)
-        if(resp.responseCode !== "000"  || resp.responseObject.length === 0){
-          navigate("/error")
-          return
+        console.log(resp);
+        if (resp.responseCode !== "000" || resp.responseObject.length === 0) {
+          navigate("/error");
+          return;
         }
 
         const respObj = resp.responseObject[0];
 
-        if(!respObj?.assesseeTag?.assesseeTagPrimary){
-          navigate("/error")
-          return
+        if (!respObj?.assesseeTag?.assesseeTagPrimary) {
+          navigate("/error");
+          return;
         }
 
-        localStorage.setItem("associateId", respObj?.associateId || "623dab305c151e50182f1412");
-        localStorage.setItem("assesseeId", respObj?.assesseeTag?.assesseeTagPrimary);
-
-        navigate("/assignment")
+        localStorage.setItem(
+          "associateId",
+          respObj?.associateId || "623dab305c151e50182f1412"
+        );
+        localStorage.setItem(
+          "assesseeId",
+          respObj?.assesseeTag?.assesseeTagPrimary
+        );
+        setLoginCred({
+          credential: respObj?.informationSetup?.assesseeSignInCredential,
+          password: respObj?.informationSetup?.assesseeSignInPassword,
+        });
+        // navigate("/assignment");
       })
       .catch((e) => {
-        navigate('/error')
+        navigate("/error");
         console.log(e);
       });
   };
@@ -194,10 +203,17 @@ function App() {
             </div>
           </form>
         </div>
-        
       </div>
       <div className="h-8"></div>
-      <Link className="text-center my-10 text-red-500 hover:text-orange-600" to={"/assignment"} ><span>Assignment &#128640;</span></Link>
+
+      <p>credential: {loginCred.credential}</p>
+      <p>PASSWORD: {loginCred.password}</p>
+      <Link
+        className="text-center my-10 text-red-500 hover:text-orange-600"
+        to={"/assignment"}
+      >
+        <span>Check outwardApi (Assignment) &#128640;</span>
+      </Link>
     </>
   );
 }

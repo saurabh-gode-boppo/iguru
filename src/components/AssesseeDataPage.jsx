@@ -126,6 +126,10 @@ const AssesseeDataPage = () => {
               responseObject?.assesseeInformation?.assesseeTag
                 .assesseeTagPrimary
             }
+            gender={
+              responseObject?.assesseeInformation?.informationPersonal
+                .assesseeGender
+            }
           />
           <div className="flex align-middle justify-center">
             <div className="mx-5 border[1px] border-slate-400">
