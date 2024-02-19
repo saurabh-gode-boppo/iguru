@@ -11,12 +11,19 @@ const AssesseeDataPage = () => {
   const [viewReport, setViewReport] = useState(false);
   const [viewAssessment, setViewAssessment] = useState(false);
   const [assessment, setAssessment] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [reportId, setReportId] = useState("");
+  const [assesseeId, setAssesseeId] = useState("");
 
-  useEffect(() => {
+  // useEffect(() => {
+  const outwardApiCall = async () => {
+    if (!assesseeId) {
+      return;
+    }
+
+    setIsLoading(true);
     const payload = {
-      assesseeId: localStorage.getItem("assesseeId"),
+      assesseeId: assesseeId,
       associateId: localStorage.getItem("associateId"),
       filterTypeName: "iGuru_Assignment",
       assesseeAssignmentStatus: ["STARTED", "UNSTARTED", "ADMINISTERED"],
@@ -59,12 +66,12 @@ const AssesseeDataPage = () => {
       // `${
       //   import?.meta.env.VITE_API_BASE_URL + import?.meta.env.VITE_ENVIRONMENT
       // }/insight-guru/api/assignment`,
-      "https://isdl4c2gae.execute-api.ap-southeast-1.amazonaws.com/dev/insight-guru/api/assessee/reviewList",
+      "https://sie74pu3ml.execute-api.ap-southeast-1.amazonaws.com/stage/insight-guru/api/assessee/reviewList",
       {
         method: "POST",
         headers: new Headers({
           Authorization:
-            "eyJraWQiOiJYdkZEN1wvakVWVktxRWxWblZkc3BZWEhkeWszTzMxQWlJd2FKRHFYNkJGVT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3Y2JhODBjZi0xYTE0LTQ4ZWMtODk0My0zM2E4NTdhMGNkOGYiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGhlYXN0LTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGhlYXN0LTFfUTRUak53Ukp6IiwiY2xpZW50X2lkIjoiN3B2ZmQ1djNzNTFwYmZkODNrMzkwZTNqYSIsIm9yaWdpbl9qdGkiOiI3ZTVjZDlkNy1kNWI0LTRjNDQtOWU1MS1iZTgyOGYzODc1ZTAiLCJldmVudF9pZCI6ImRlYzc1MzA1LWNkZjItNDAwZS1hMDY4LTBjNGQ5ZDAyMDk0OSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MDY4NTgwMjYsImV4cCI6MTcwNzczNzM3NiwiaWF0IjoxNzA3NzMzNzc2LCJqdGkiOiI0MzhhM2EzMy04ZDNkLTQwNzUtYTJhZS1kY2NlYWM3NjAwYzEiLCJ1c2VybmFtZSI6IjY0ODFhYmExOWU1NWE2NmM2YjRmYjJiZCJ9.vIOxA1_uxUD5K9Mo2oF0MurVswN0SvP-tIfu1DGCZQSn7pDOO0xaNnrxsD_cPBmEEjHckjPAdUneoCS5jtNCpMAShyN-ZFQ5GnJaVPTn-0cgA6gcbRDD5QR1Dd0m6CBJBJVHaQ1kljXlrItIL1crPjC1HMz1_WvBmkMOj-oY6s7uk7ishqsPT-TPJEF_vMv-iHA5t04P-4PU3Nhdo2HGCezVrqxDONituU7y_ZNi5kEFF5ee7dSUg0wypRPcndaTxAFB8_emmPQRNphbQgtytnp4ynZumRhFl0pqgdIJkwTpOzQH7qlAOxBNAKsW804becrcgnZM1XT3sLIqk7ULIA",
+            "eyJraWQiOiJYdkZEN1wvakVWVktxRWxWblZkc3BZWEhkeWszTzMxQWlJd2FKRHFYNkJGVT0iLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiI3Y2JhODBjZi0xYTE0LTQ4ZWMtODk0My0zM2E4NTdhMGNkOGYiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGhlYXN0LTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGhlYXN0LTFfUTRUak53Ukp6IiwiY2xpZW50X2lkIjoiN3B2ZmQ1djNzNTFwYmZkODNrMzkwZTNqYSIsIm9yaWdpbl9qdGkiOiI3ZTVjZDlkNy1kNWI0LTRjNDQtOWU1MS1iZTgyOGYzODc1ZTAiLCJldmVudF9pZCI6ImRlYzc1MzA1LWNkZjItNDAwZS1hMDY4LTBjNGQ5ZDAyMDk0OSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE3MDY4NTgwMjYsImV4cCI6MTcwODA4OTk4MSwiaWF0IjoxNzA4MDg2MzgxLCJqdGkiOiIxZGM1N2I5Zi1hNTczLTRlNjUtODE2NC1mOWFlMTBhNDEwNDQiLCJ1c2VybmFtZSI6IjY0ODFhYmExOWU1NWE2NmM2YjRmYjJiZCJ9.QzOezpIw9LAF2fE8SXlHPyko94LCo_-_upOll3T1v98oDUtjUOFB4_jhSHMfQNPTjFQdei4xDOWLiqxNAfNcU64fAf4R52Tcyf-49tAT9x70jgOwYD3nL2al2ThbIomGXRlQmP-88qiLfPG8D6qd2xIX9YgnZ1dT0y7bG1nKU46xNSsw_ZSznt2oChk_Tyu0qe5d9DVyaHymw_8sPIlDgy283QeAmX38yxEMZAqX-sVHIj1y5FgISbMlfPBmdFV8AMyLXiV7OeL4KqjZ0h5Uoah-I1phevzZKQ_z2VCkM57vjVa0pMY6f22iOAmpoo1DuxNDj29MlPLlewDiQqWZlQ",
         }),
         body: JSON.stringify(payload),
       }
@@ -78,8 +85,9 @@ const AssesseeDataPage = () => {
         setIsLoading(false);
         console.log(e);
       });
-  }, []);
+  };
 
+  // }, [assesseeId]);
 
   return (
     <>
@@ -104,6 +112,27 @@ const AssesseeDataPage = () => {
           <span className="sr-only">Loading...</span>
         </div>
       )}
+
+      {!isLoading && <div className="flex align-middle justify-center my-6 border-[1px] border-slate-700 rounded-md p-4">
+        <label htmlFor="assesseeId">assesseeId: </label>
+        <input
+          type="string"
+          name="assesseeId"
+          value={assesseeId}
+          onChange={(ev) => {
+            setAssesseeId(ev.target.value);
+          }}
+          className="mx-6 w-64 rounded-md p-2"
+        />
+        <button
+          onClick={() => {
+            !isLoading && outwardApiCall();
+          }}
+          className="border-[1px] border-red-700 active:border-green-600 p-2 rounded-md" 
+        >
+          Click To check outwardApi{" "}
+        </button>
+      </div>}
 
       {!isLoading && !viewReport && (
         <>
