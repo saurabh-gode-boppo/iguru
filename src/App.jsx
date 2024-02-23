@@ -7,16 +7,17 @@ function App() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [associateId, setAssociateId] = useState("");
   const [mobile, setMobile] = useState("");
   const [gender, setGender] = useState("");
   const [err, setErr] = useState("");
   const [loginCred, setLoginCred] = useState({});
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
   const payload = {
-    associateId: "623dab305c151e50182f1412",
+    associateId: associateId,
     informationBasic: {
       assesseeNamePrefix: "",
       assesseeNameFirst: firstName,
@@ -61,7 +62,7 @@ function App() {
         const resp = await data.json();
         // console.log(resp);
         if (resp.responseCode !== "000" || resp.responseObject.length === 0) {
-          setErr(resp.responseMessage)
+          setErr(resp.responseMessage);
           // navigate("/error");
           return;
         }
@@ -70,18 +71,10 @@ function App() {
 
         if (!respObj?.assesseeTag?.assesseeTagPrimary) {
           // navigate("/error");
-          setErr(resp.responseMessage)
+          setErr(resp.responseMessage);
           return;
         }
-        setErr(resp.responseMessage)
-        localStorage.setItem(
-          "associateId",
-          respObj?.associateId || "623dab305c151e50182f1412"
-        );
-        localStorage.setItem(
-          "assesseeId",
-          respObj?.assesseeTag?.assesseeTagPrimary
-        );
+        setErr(resp.responseMessage);
         setLoginCred({
           credential: respObj?.informationSetup?.assesseeSignInCredential,
           password: respObj?.informationSetup?.assesseeSignInPassword,
@@ -89,7 +82,7 @@ function App() {
         // navigate("/assignment");
       })
       .catch((e) => {
-        setError(e.message)
+        setError(e.message);
         // navigate("/error");
         console.log(e);
       });
@@ -155,17 +148,32 @@ function App() {
                 />
               </div>
             </div>
-            <div className="flex flex-col my-6">
-              <label>Email Address</label>
-              <input
-                className="rounded-md p-3"
-                type="email"
-                value={email}
-                onChange={(e) => {
-                  setErr("");
-                  setEmail(e.target.value);
-                }}
-              />
+
+            <div className="flex justify-between align-middle my-6 ">
+              <div className="flex flex-col">
+                <label>Email Address</label>
+                <input
+                  className="rounded-md p-3 w-80"
+                  type="email"
+                  value={email}
+                  onChange={(e) => {
+                    setErr("");
+                    setEmail(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="flex flex-col">
+                <label className="w-48">AssociateId</label>
+                <input
+                  className="rounded-md p-3 w-80"
+                  type="text"
+                  value={associateId}
+                  onChange={(e) => {
+                    setErr("");
+                    setAssociateId(e.target.value);
+                  }}
+                />
+              </div>
             </div>
             <div className="flex justify-between align-middle my-6">
               <div className="flex flex-col">

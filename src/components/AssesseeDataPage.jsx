@@ -14,18 +14,21 @@ const AssesseeDataPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [reportId, setReportId] = useState("");
   const [assesseeId, setAssesseeId] = useState("");
+  const [associateId, setAssociateId] = useState("");
+  const [apiErr, setApiErr] = useState("");
 
   // useEffect(() => {
   const outwardApiCall = async () => {
-    if (!assesseeId) {
+    if (!assesseeId || !associateId) {
       return;
     }
 
     setIsLoading(true);
+    setApiErr("");
     const payload = {
       assesseeId: assesseeId,
-      associateId: localStorage.getItem("associateId"),
-      filterTypeName: "iGuru_Assignment",
+      associateId: associateId,
+      filterTypeName: "",
       assesseeAssignmentStatus: ["STARTED", "UNSTARTED", "ADMINISTERED"],
       countPage: -1,
       numberPage: 0,
@@ -78,8 +81,14 @@ const AssesseeDataPage = () => {
     )
       .then(async (data) => {
         let resp = await data.json();
-        setResponseObject(resp.responseObject);
         setIsLoading(false);
+
+        if (resp.responseCode !== "000") {
+          setApiErr(resp.responseMessage || "api failed");
+          return;
+        }
+
+        setResponseObject(resp.responseObject);
       })
       .catch((e) => {
         setIsLoading(false);
@@ -113,26 +122,45 @@ const AssesseeDataPage = () => {
         </div>
       )}
 
-      {!isLoading && <div className="flex align-middle justify-center my-6 border-[1px] border-slate-700 rounded-md p-4">
-        <label htmlFor="assesseeId">assesseeId: </label>
-        <input
-          type="string"
-          name="assesseeId"
-          value={assesseeId}
-          onChange={(ev) => {
-            setAssesseeId(ev.target.value);
-          }}
-          className="mx-6 w-64 rounded-md p-2"
-        />
-        <button
-          onClick={() => {
-            !isLoading && outwardApiCall();
-          }}
-          className="border-[1px] border-red-700 active:border-green-600 p-2 rounded-md" 
-        >
-          Click To check outwardApi{" "}
-        </button>
-      </div>}
+      {!isLoading && (
+        <div className="flex align-middle justify-center flex-col my-6 border-[1px] border-slate-700 rounded-md p-4">
+          <div>
+            <label htmlFor="assesseeId">assesseeId: </label>
+            <input
+              type="string"
+              name="assesseeId"
+              value={assesseeId}
+              onChange={(ev) => {
+                setAssesseeId(ev.target.value);
+              }}
+              className="mx-6 w-64 rounded-md p-2 my-2"
+            />
+          </div>
+          <div>
+            <label htmlFor="associateId">associateId: </label>
+            <input
+              type="string"
+              name="associateId"
+              value={assesseeId}
+              onChange={(ev) => {
+                setAssociateId(ev.target.value);
+              }}
+              className="mx-6 w-64 rounded-md p-2 my-2"
+            />
+          </div>
+          <div className="flex align-middle justify-center">
+          <button
+            onClick={() => {
+              !isLoading && outwardApiCall();
+            }}
+            className="border-[1px] my-4 w-64 p-2 rounded-md transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+          >
+            Click To check outwardApi{" "}
+          </button>
+          </div>
+          
+        </div>
+      )}
 
       {!isLoading && !viewReport && (
         <>
